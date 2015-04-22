@@ -46,7 +46,7 @@ Be sure to change the leading folders as your installation.
 #undef UNICODE
 #endif
 
-#include <Windows.h>
+#include <X11/Xlib.h>
 
 #define BLACK			RGB(0, 0, 0)
 #define RED				RGB(255, 0, 0)

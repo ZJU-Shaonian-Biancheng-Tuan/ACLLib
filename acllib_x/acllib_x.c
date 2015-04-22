@@ -109,7 +109,8 @@ void acl_error(char *errStr)
 }
 
 //
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow)
+// int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow)
+int main(int argc, char ** argv)
 {
 	MSG          msg;
 	WNDCLASSA     wndclass;

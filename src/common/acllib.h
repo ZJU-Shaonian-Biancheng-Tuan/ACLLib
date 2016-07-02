@@ -46,7 +46,15 @@ Be sure to change the leading folders as your installation.
 #undef UNICODE
 #endif
 
+#ifdef WIN32
 #include <Windows.h>
+#endif
+
+#ifdef LINUX_VERSION
+#include <gtk/gtk.h>
+#endif
+
+#include <gtk/gtk.h>
 
 #define BLACK			RGB(0, 0, 0)
 #define RED				RGB(255, 0, 0)

@@ -2,16 +2,54 @@
 // Created by zhenghu on 16-7-2.
 //
 #include "../common/acllib.h"
-int Setup() {
 
+#include <gtk/gtk.h>
+#define G_GET(var, type, member) (((type*)var)->member)
+
+
+typedef struct _window_info {
+  char *title;
+} window_info_s;
+
+static void
+activate(GtkApplication *app,
+         gpointer user_data) {
+  GtkWidget *window;
+
+  window = gtk_application_window_new(app);
+  gtk_window_set_title(GTK_WINDOW (window), G_GET(user_data, window_info_s, title));
+  gtk_window_set_default_size(GTK_WINDOW (window), 200, 200);
+  gtk_widget_show_all(window);
 }
 
+int main(int argc,
+         char **argv) {
+
+  Setup();
+  printf("THis is not turE!\n");
+
+  GtkApplication *app;
+  int status;
+
+  window_info_s window_info = {"Test, Correct!"};
+
+  app = gtk_application_new("edu.zju.cprogramming", G_APPLICATION_FLAGS_NONE);
+  g_signal_connect (app, "activate", G_CALLBACK(activate), &window_info);
+
+  status = g_application_run(G_APPLICATION (app), argc, argv);
+  g_object_unref(app);
+
+  printf("THis is not turE!%d\n", status);
+  return status;
+}
 
 void initWindow(const char title[], int left, int top, int width, int height) {
+//  GtkApplication *app;
+//  app = gtk_application_window_new(app);
 
 }
 void msgBox(const char title[], const char text[], int flag) {
-
+  gtk_dialog_new();
 }
 
 void registerKeyboardEvent(KeyboardEventCallback callback) {

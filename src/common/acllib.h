@@ -39,6 +39,17 @@ Be sure to change the leading folders as your installation.
 #ifndef __ACLLIB_H__
 #define __ACLLIB_H__
 
+typedef void *PVOID;
+typedef PVOID HANDLE;
+typedef HANDLE HBITMAP;
+
+typedef long LONG;
+
+typedef struct tagPOINT {
+  LONG x;
+  LONG y;
+} POINT, *PPOINT;
+
 #ifdef _UNICODE
 #undef _UNICODE
 #endif
@@ -66,18 +77,18 @@ Be sure to change the leading folders as your installation.
 
 #define EMPTY                0xffffffff
 #define DEFAULT                -1
-
-typedef struct {
-
-} HBITMAP;
-
-typedef struct {
-
-} POINT;
-
-typedef struct {
-
-} COLORREF;
+//
+//typedef struct {
+//
+//} HBITMAP;
+//
+//typedef struct {
+//
+//} POINT;
+//
+//typedef struct {
+//
+//} COLORREF;
 
 typedef enum {
   PEN_STYLE_SOLID,
@@ -126,12 +137,19 @@ typedef struct {
   int height;
 } ACL_Image;
 
-//typedef enum
-//{
-//	TM_NO = 0x00,
-//	TM_COLOR = 0x01,
-//	TM_ALPHA = 0x02
-//} ACL_TransparentMode;
+typedef enum
+{
+	TM_NO = 0x00,
+	TM_COLOR = 0x01,
+	TM_ALPHA = 0x02
+} ACL_TransparentMode;
+
+
+typedef unsigned long DWORD;
+
+typedef DWORD COLORREF;
+typedef DWORD* LPCOLORREF;
+
 
 typedef COLORREF ACL_Color;
 typedef int ACL_Sound;

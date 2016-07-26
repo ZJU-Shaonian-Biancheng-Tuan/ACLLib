@@ -35,7 +35,7 @@
 #undef UNICODE
 #endif
 
-#include "../../acllib/acllib.h"
+#include "../common/acllib.h"
 
 #include <windows.h>
 #include <olectl.h>

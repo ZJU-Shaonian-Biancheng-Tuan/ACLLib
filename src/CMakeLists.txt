@@ -23,7 +23,7 @@ add_library(acl_gtk common/acllib.h gtk/acllib.c)
 add_library(acl_win32 common/acllib.h win32/acllib.c)
 
 target_include_directories(acl_win32 PUBLIC mingw-headers)
-
+target_link_libraries(acl_win32 gdi32 ole32 oleaut32 uuid winmm msimg32)
 add_library(acllib ALIAS acl_gtk)
 
 TARGET_LINK_LIBRARIES(acl_gtk ${GTK3_LIBRARIES})
@@ -39,3 +39,4 @@ set(CMAKE_AUTOMOC OFF)
 find_package(Qt5Widgets)
 
 target_link_libraries(acl_qt Qt5::Widgets)
+set_target_properties(acl_qt PROPERTIES CXX_VERSION 14)

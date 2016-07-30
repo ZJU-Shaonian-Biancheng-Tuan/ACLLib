@@ -39,6 +39,13 @@ Be sure to change the leading folders as your installation.
 #ifndef __ACLLIB_H__
 #define __ACLLIB_H__
 
+#ifndef WIN32
+#ifndef ACL__WIN32_
+typedef unsigned char BYTE;
+typedef unsigned short WORD;
+typedef unsigned long DWORD;
+#define RGB(r,g,b)      ((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16)))
+
 typedef void *PVOID;
 typedef PVOID HANDLE;
 typedef HANDLE HBITMAP;
@@ -49,6 +56,13 @@ typedef struct tagPOINT {
   LONG x;
   LONG y;
 } POINT, *PPOINT;
+#else
+#include <windows.h>
+#endif
+//typedef struct tagPoint POINT, *PPOINT;
+#else
+#include <windows.h>
+#endif
 
 #ifdef _UNICODE
 #undef _UNICODE
@@ -56,16 +70,6 @@ typedef struct tagPOINT {
 #ifdef UNICODE
 #undef UNICODE
 #endif
-
-#ifdef WIN32
-#include <Windows.h>
-#endif
-
-#ifdef LINUX_VERSION
-#include <gtk/gtk.h>
-#endif
-
-
 #define BLACK            RGB(0, 0, 0)
 #define RED                RGB(255, 0, 0)
 #define GREEN            RGB(0, 255, 0)
@@ -132,7 +136,7 @@ typedef enum {
 } ACL_Keyboard_Event;
 
 typedef struct {
-  HBITMAP hbitmap;
+  HBITMAP HBITMAP;
   int width;
   int height;
 } ACL_Image;

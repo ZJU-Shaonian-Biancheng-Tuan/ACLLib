@@ -29,3 +29,9 @@ target_link_libraries(clock_win32 acl_win32)
 
 add_executable(clock_qt clock.c)
 target_link_libraries(clock_qt acl_qt)
+
+add_executable(keyboard_win32 keyboard.c)
+target_link_libraries(keyboard_win32 acl_win32)
+
+add_executable(keyboard_qt keyboard.c)
+target_link_libraries(keyboard_qt acl_qt)

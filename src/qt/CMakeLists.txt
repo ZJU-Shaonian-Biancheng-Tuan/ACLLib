@@ -2,9 +2,9 @@ add_library(acl_qt
         ${ACL_HEADERS}
         functionalities/acllib.cpp
         window.cpp window.h
-        components/timer.cpp components/timer.h
+        components/IntTimer.cpp components/IntTimer.h
         components/PaintArea.cpp components/PaintArea.h
-        )
+        components/KeyboardTranslator.cpp components/KeyboardTranslator.h)
 
 set(CMAKE_INCLUDE_CURRENT_DIR OFF)
 set(CMAKE_AUTOMOC OFF)

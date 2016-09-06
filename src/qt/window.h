@@ -8,12 +8,11 @@
 extern "C" {
 #include "../common/acllib.h"
 }
+
 #include "components/PaintArea.h"
 
 extern QApplication *pApp;
 extern QMainWindow *pMainWindow;
-
 extern AclGlobalWidget *pGlobalWidget;
-
 
 #endif //PROJECT_WINDOW_H

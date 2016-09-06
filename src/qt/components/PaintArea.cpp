@@ -15,6 +15,12 @@ void AclGlobalWidget::mousePressEvent(QMouseEvent *event) {
     // pass on other buttons to base class
   }
 }
+
+/**
+ * The constructor of the widget.
+ * Set the current point to (0, 0)
+ * @return
+ */
 AclGlobalWidget::AclGlobalWidget()
     : currentPoint(new Point(0, 0)),
       qPen(QColor(0, 0, 0), Qt::SolidPattern),
@@ -26,7 +32,23 @@ AclGlobalWidget::~AclGlobalWidget() {
   delete currentPoint;
 }
 
-// the Point
+/**
+ * Delates the painter creation and choice of pen/brush.
+ * Checks if the `painter` pointer is null. If not, delete it.
+ * As the library provides no mutlitheading, this should be considered safe.
+ * @return A pointer to the painter object.
+ */
+QPainter *AclGlobalWidget::getPainter() {
+  if (painter) delete painter;
+  painter = new QPainter(&image);
+  painter->setPen(qPen);
+  return painter;
+}
+
+/**
+ * Get the X coordinate of the current point.
+ * @return
+ */
 int AclGlobalWidget::getX(void) {
   return currentPoint->x;
 }
@@ -43,17 +65,16 @@ void AclGlobalWidget::moveRel(int dx, int dy) {
 }
 
 void AclGlobalWidget::addLine(int startX, int startY, int endX, int endY) {
-  QPainter painter(&image);
-  painter.drawLine(startX, startY, endX, endY);
+  getPainter()->drawLine(startX, startY, endX, endY);
 }
 
 void AclGlobalWidget::addLineTo(int endX, int endY) {
-  QPainter painter(&image);
-  painter.drawLine(currentPoint->x, currentPoint->y, endX, endY);
+  getPainter()->drawLine(currentPoint->x, currentPoint->y, endX, endY);
 }
 
 void AclGlobalWidget::lineRel(int dx, int dy) {
-
+  getPainter()->drawLine(currentPoint->x, currentPoint->y,
+                   currentPoint->x + dx, currentPoint->y + dy);
 }
 void AclGlobalWidget::polyBezier(const POINT *lppt, int cPoints) {
 
@@ -68,8 +89,7 @@ void AclGlobalWidget::chrod(int nLeftRect, int nTopRect, int nRightRect, int nBo
 
 }
 void AclGlobalWidget::ellipse(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect) {
-  QPainter painter(&image);
-  painter.drawEllipse(nLeftRect, nTopRect, nRightRect, nBottomRect);
+  getPainter()->drawEllipse(nLeftRect, nTopRect, nRightRect, nBottomRect);
 }
 void AclGlobalWidget::pie(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, \
     int nXRadial1, int nYRadial1, int nXRadial2, int nYRadial2) {
@@ -79,28 +99,33 @@ void AclGlobalWidget::polygon(const POINT *lpPoints, int nCount) {
 
 }
 void AclGlobalWidget::rectangle(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect) {
-
+  getPainter()->drawRect(nLeftRect, nTopRect, nRightRect - nLeftRect, nBottomRect - nTopRect);
 }
 void AclGlobalWidget::roundrect(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, \
     int nWidth, int nHeight) {
 
 }
 
+
+void AclGlobalWidget::keyPressEvent(QKeyEvent *event) {
+  qDebug() << "Key " << event->key() << " pressed";
+  if (keyboardEventCallback != nullptr) {
+    keyboardEventCallback(keyboardTranslator.fromQtKeyCode(event->key()), KEY_DOWN);
+  }
+}
+
+void AclGlobalWidget::keyReleaseEvent(QKeyEvent *event) {
+  qDebug() << "Key " << event->key() << " released";
+  if (keyboardEventCallback != nullptr) {
+    keyboardEventCallback(keyboardTranslator.fromQtKeyCode(event->key()), KEY_UP);
+  }
+}
+
 void AclGlobalWidget::paintEvent(QPaintEvent *event) {
   QPainter painter(this);
   QRect dirtyRect = event->rect();
   painter.drawImage(dirtyRect, image, dirtyRect);
-//  QPainter painter(this);
-//  painter.setPen(qPen);
-//  painter.setBrush(qBrush);
 //  painter.setRenderHints(QPainter::HighQualityAntialiasing, true);
-////  painter.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap));
-//  for (auto &line: lines) {
-    
-//  }
-//  for (auto &ellipse: ellipses) {
-////    painter.drawEllipse(ellipse);
-//  }
 }
 
 void AclGlobalWidget::resizeEvent(QResizeEvent *event)
@@ -143,15 +168,27 @@ void AclGlobalWidget::clearDevice(void) {
   image.fill(qRgb(255, 255, 255));
 }
 int AclGlobalWidget::getWidth() {
-
+  return width();
 }
 int AclGlobalWidget::getHeight() {
-
+  return height();
 }
 
 void AclGlobalWidget::registerTimerEvent(TimerEventCallback callback) {
   timerEventCallback = callback;
 }
+
+void AclGlobalWidget::registerKeyboardEvent(KeyboardEventCallback callback) {
+  keyboardEventCallback = callback;
+}
+
+void AclGlobalWidget::registerCharEvent(CharEventCallback callback) {
+  charEventCallback = callback;
+}
+void AclGlobalWidget::registerMouseEvent(MouseEventCallback callback) {
+  mouseEventCallback = callback;
+}
+
 
 
 void AclGlobalWidget::startTimer(int timerID, int timeinterval) {

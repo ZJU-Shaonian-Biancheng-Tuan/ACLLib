@@ -53,12 +53,15 @@ int main(int argc,
 
 
 void registerKeyboardEvent(KeyboardEventCallback callback) {
-
+  pGlobalWidget->registerKeyboardEvent(callback);
 }
 void registerCharEvent(CharEventCallback callback) {
-
+  pGlobalWidget->registerCharEvent(callback);
 }
-void registerMouseEvent(MouseEventCallback callback) {}
+void registerMouseEvent(MouseEventCallback callback) {
+  pGlobalWidget->registerMouseEvent(callback);
+}
+
 void registerTimerEvent(TimerEventCallback callback) {
   pGlobalWidget->registerTimerEvent(callback);
 }

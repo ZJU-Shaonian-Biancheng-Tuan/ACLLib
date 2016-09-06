@@ -4,12 +4,20 @@
 
 #include "window.h"
 
-
+/**
+ *
+ * @param title
+ * @param left
+ * @param top
+ * @param width
+ * @param height
+ */
 void initWindow(const char title[], int left, int top, int width, int height) {
 
   pMainWindow = new QMainWindow();
   pGlobalWidget = new AclGlobalWidget();
   pMainWindow->setCentralWidget(pGlobalWidget);
+  pGlobalWidget->setFocus();
   pMainWindow->setWindowTitle(title);
   pMainWindow->resize(width, height);
   pMainWindow->move(left, top);
@@ -19,10 +27,12 @@ void initWindow(const char title[], int left, int top, int width, int height) {
 
 }
 
-///
-/// \param title
-/// \param text
-/// \param flag
+/**
+ *
+ * @param title
+ * @param text
+ * @param flag
+ */
 void msgBox(const char title[], const char text[], int flag) {
   QMessageBox messageBox; // TODO: The behavior is different from Windows API.
   messageBox.setWindowTitle(title);

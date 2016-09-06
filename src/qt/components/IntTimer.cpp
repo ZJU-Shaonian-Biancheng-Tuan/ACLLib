@@ -2,7 +2,7 @@
 // Created by Colliot on 2016/9/6.
 //
 
-#include "timer.h"
+#include "IntTimer.h"
 
 W_OBJECT_IMPL(IntTimer)
 void IntTimer::fireTimer() {

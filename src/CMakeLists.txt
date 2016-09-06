@@ -15,6 +15,5 @@ set(ACL_HEADERS
 
 include_directories(common)
 add_subdirectory(gtk)
-add_subdirectory(opengl)
 add_subdirectory(qt)
 add_subdirectory(win32)

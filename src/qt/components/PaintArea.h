@@ -24,50 +24,44 @@
 #include "../verdigris/src/wobjectdefs.h"
 #include <QtWidgets/QMessageBox>
 
-#include "timer.h"
+#include "IntTimer.h"
+#include "KeyboardTranslator.h"
 
 struct Point {
   int x, y;
   Point(int x, int y) : x(x), y(y) {}
 };
 
-///
-struct Line {
-  int startX, startY;
-  int endX, endY;
-  Line(int startX, int startY, int endX, int endY) : startX(startX), startY(startY), endX(endX), endY(endY) {}
-};
+// TODO: a bridge between ACL types and platform/framework types.
 
-
-enum class ShapeType {
-  LINE, ELLIPSE, RECTANGLE
-};
-
-struct DrawingTuple {
-  // The pen
-  ACL_Color penColor = BLACK;
-  int penWidth = 1;
-  int penStyle = PEN_STYLE_SOLID;
-  // The brush
-  ACL_Color brushColor = BLACK;
-  int brushStyle = BRUSH_STYLE_SOLID;
-};
-
+/**
+ *
+ */
 class AclGlobalWidget: public QWidget {
   W_OBJECT(AclGlobalWidget)
  private:
+  KeyboardTranslator keyboardTranslator;
+  QPainter *painter = nullptr;
   QImage image;
-  DrawingTuple drawingTuple;
   QPen qPen;
   QBrush qBrush;
   std::string title;
   Point *currentPoint;
   QTimer *timer;
-  std::deque<Line> lines;
-  std::deque<QRect> ellipses;
   std::map<int, IntTimer *> timers;
   TimerEventCallback timerEventCallback;
+  CharEventCallback charEventCallback;
+  MouseEventCallback mouseEventCallback;
+  KeyboardEventCallback keyboardEventCallback;
+ private:
+  /**
+   * Delates the painter creation and choice of pen/brush.
+   * @return A pointer to the painter object.
+   */
+  QPainter *getPainter();
  protected:
+  void keyPressEvent(QKeyEvent *event);
+  void keyReleaseEvent(QKeyEvent *event);
   void paintEvent(QPaintEvent *event);
   void resizeEvent(QResizeEvent *event);
   void mousePressEvent(QMouseEvent *event);
@@ -105,6 +99,9 @@ class AclGlobalWidget: public QWidget {
   int getWidth();
   int getHeight();
   void registerTimerEvent(TimerEventCallback callback);
+  void registerKeyboardEvent(KeyboardEventCallback callback);
+  void registerCharEvent(CharEventCallback callback);
+  void registerMouseEvent(MouseEventCallback callback);
   void startTimer(int timerID, int timeinterval);
   void cancelTimer(int timerID);
  public:

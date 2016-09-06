@@ -26,6 +26,22 @@ typedef enum {
   KEY_UP
 } ACL_Keyboard_Event;
 
+/**
+ * Derived from Win32.
+ * Using macro definitions directly from another library is not a good practice.
+ * Kept only for backward compatibility.
+ * If the VK_LEFT macro is defined, there is no need to define the as enum constants.
+ * This possibly means "windows.h" is included,
+ * which can only happen when compiling the library, on contrary to the examples.
+ */
+#ifndef VK_LEFT
+typedef enum {
+  VK_LEFT = 0x25,
+  VK_UP = 0x26,
+  VK_RIGHT = 0x27,
+  VK_DOWN = 0x28,
+} ACL_Virtual_Key_Code;
+#endif
 
 typedef void (*KeyboardEventCallback)(int key, int event);
 typedef void (*CharEventCallback)(char c);

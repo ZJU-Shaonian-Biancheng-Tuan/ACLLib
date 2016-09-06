@@ -3,6 +3,7 @@
 //
 
 #include "IntTimer.h"
+#include "../verdigris/src/wobjectimpl.h"
 
 W_OBJECT_IMPL(IntTimer)
 void IntTimer::fireTimer() {

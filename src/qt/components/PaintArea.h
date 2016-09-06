@@ -5,7 +5,6 @@
 #ifndef PROJECT_PAINTAREA_H
 #define PROJECT_PAINTAREA_H
 
-
 #include <acllib.h>
 
 #include <QApplication>
@@ -20,7 +19,6 @@
 #include <QMouseEvent>
 #include <deque>
 #include <map>
-#include "../verdigris/src/wobjectimpl.h"
 #include "../verdigris/src/wobjectdefs.h"
 #include <QtWidgets/QMessageBox>
 

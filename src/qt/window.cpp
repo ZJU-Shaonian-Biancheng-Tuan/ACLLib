@@ -19,7 +19,7 @@ void initWindow(const char title[], int left, int top, int width, int height) {
   pMainWindow->setCentralWidget(pGlobalWidget);
   pGlobalWidget->setFocus();
   pMainWindow->setWindowTitle(title);
-  pMainWindow->resize(width, height);
+  pMainWindow->setFixedSize(width, height);
   pMainWindow->move(left, top);
   pMainWindow->show();
 //  GtkApplication *app;

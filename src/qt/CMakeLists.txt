@@ -6,7 +6,7 @@ add_library(acl_qt
         window.cpp window.h
         components/IntTimer.cpp components/IntTimer.h
         components/PaintArea.cpp components/PaintArea.h
-        components/KeyboardTranslator.cpp components/KeyboardTranslator.h)
+        components/KeyboardTranslator.cpp components/KeyboardTranslator.h components/MouseTranslator.cpp components/MouseTranslator.h)
 
 set(CMAKE_INCLUDE_CURRENT_DIR OFF)
 set(CMAKE_AUTOMOC OFF)

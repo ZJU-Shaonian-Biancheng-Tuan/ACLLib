@@ -63,7 +63,15 @@ class AclGlobalWidget: public QWidget {
   void paintEvent(QPaintEvent *event);
   void resizeEvent(QResizeEvent *event);
   void mousePressEvent(QMouseEvent *event);
+  void mouseReleaseEvent(QMouseEvent *event);
+  void mouseDoubleClickEvent(QMouseEvent *event);
+  void mouseMoveEvent(QMouseEvent *event);
+  void wheelEvent(QWheelEvent *event);
   void resizeImage(QImage *image, const QSize &newSize);
+  /**
+   * A slot handling the timers based on the ID.
+   * @param timerId
+   */
   void timerListener(int timerId);
   W_SLOT(timerListener)
  public:

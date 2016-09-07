@@ -2,18 +2,57 @@
 // Created by Colliot on 2016/9/6.
 //
 
+#include <cassert>
 #include "PaintArea.h"
+#include "MouseTranslator.h"
 #include "../verdigris/src/wobjectimpl.h"
+#include "functionalities/events.h"
 
 W_OBJECT_IMPL(AclGlobalWidget)
 /// Handle mouse press events.
 /// \param event
 void AclGlobalWidget::mousePressEvent(QMouseEvent *event) {
-  qDebug() << event->x();
-  if (event->button() == Qt::LeftButton) {
-    // handle left mouse button here
-  } else {
-    // pass on other buttons to base class
+  if (mouseEventCallback != nullptr) {
+    mouseEventCallback(event->x(), event->y(),
+                       buttonFromQt(event->button()),
+                       BUTTON_DOWN
+    );
+  }
+}
+
+void AclGlobalWidget::mouseReleaseEvent(QMouseEvent *event) {
+  if (mouseEventCallback != nullptr) {
+    mouseEventCallback(event->x(), event->y(),
+                       buttonFromQt(event->button()),
+                       BUTTON_UP
+    );
+  }
+}
+
+void AclGlobalWidget::mouseDoubleClickEvent(QMouseEvent *event) {
+  if (mouseEventCallback != nullptr) {
+    mouseEventCallback(event->x(), event->y(),
+                       buttonFromQt(event->button()),
+                       BUTTON_DOUBLECLICK
+    );
+  }
+}
+
+void AclGlobalWidget::mouseMoveEvent(QMouseEvent *event) {
+  if (mouseEventCallback != nullptr) {
+    mouseEventCallback(event->x(), event->y(),
+                       MOUSEMOVE,
+                       MOUSEMOVE
+    );
+  }
+}
+
+void AclGlobalWidget::wheelEvent(QWheelEvent *event) {
+  if (mouseEventCallback != nullptr) {
+    mouseEventCallback(event->x(), event->y(),
+                       MIDDLE_BUTTON,
+                       event->delta() >= 0 ? ROLL_DOWN : ROLL_UP
+    );
   }
 }
 
@@ -27,6 +66,7 @@ AclGlobalWidget::AclGlobalWidget()
       qPen(QColor(0, 0, 0), Qt::SolidPattern),
       qBrush(QColor(0, 0, 0), Qt::SolidPattern) {
   qPen.setWidth(1);
+  setMouseTracking(true);
 }
 AclGlobalWidget::~AclGlobalWidget() {
   delete timer;
@@ -40,8 +80,7 @@ AclGlobalWidget::~AclGlobalWidget() {
  * @return A pointer to the painter object.
  */
 QPainter *AclGlobalWidget::getPainter() {
-  if (painter) delete painter;
-  painter = new QPainter(&image);
+  assert(painter != nullptr);
   painter->setBrush(qBrush);
   painter->setPen(qPen);
   return painter;
@@ -161,10 +200,11 @@ void AclGlobalWidget::timerListener(int timerId) {
 }
 
 void AclGlobalWidget::beginPaint() {
-
+  painter = new QPainter(&image);
 }
 void AclGlobalWidget::endPaint() {
   update();
+  if (painter) delete painter;
 }
 void AclGlobalWidget::clearDevice(void) {
   image.fill(qRgb(255, 255, 255));

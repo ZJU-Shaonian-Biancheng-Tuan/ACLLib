@@ -12,3 +12,5 @@ add_library(acl_win32
 
 target_include_directories(acl_win32 PUBLIC mingw-headers)
 target_link_libraries(acl_win32 gdi32 ole32 oleaut32 uuid winmm msimg32)
+
+set_target_properties(acl_win32 PROPERTIES C_STANDARD 99)

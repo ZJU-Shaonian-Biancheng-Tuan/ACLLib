@@ -1,8 +1,8 @@
-if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    # Linux specific code
-    set(OperatingSystem "Linux")
-
-endif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+#if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+#    # Linux specific code
+#    set(OperatingSystem "Linux")
+#
+#endif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 set(ACL_HEADERS
         ${CMAKE_CURRENT_LIST_DIR}/common/acllib.h

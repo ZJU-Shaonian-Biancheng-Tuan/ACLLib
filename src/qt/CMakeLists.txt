@@ -1,4 +1,6 @@
 add_library(acl_qt
+        verdigris/src/wobjectimpl.h
+        verdigris/src/wobjectdefs.h
         ${ACL_HEADERS}
         functionalities/acllib.cpp
         window.cpp window.h
@@ -12,4 +14,4 @@ set(CMAKE_AUTOMOC OFF)
 find_package(Qt5Widgets)
 
 target_link_libraries(acl_qt Qt5::Widgets)
-set_target_properties(acl_qt PROPERTIES CXX_VERSION 14)
+set_target_properties(acl_qt PROPERTIES CXX_STANDARD 14)

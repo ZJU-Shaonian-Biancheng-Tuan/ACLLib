@@ -3,6 +3,7 @@
 //
 
 #include "PaintArea.h"
+#include "../verdigris/src/wobjectimpl.h"
 
 W_OBJECT_IMPL(AclGlobalWidget)
 /// Handle mouse press events.

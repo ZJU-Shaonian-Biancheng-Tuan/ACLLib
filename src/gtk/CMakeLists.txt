@@ -10,3 +10,4 @@ target_link_libraries(acl_gtk ${GTK3_LIBRARIES})
 
 add_library(acllib ALIAS acl_gtk)
 
+set_target_properties(acl_gtk PROPERTIES C_STANDARD 99)

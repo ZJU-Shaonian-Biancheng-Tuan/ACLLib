@@ -5,9 +5,7 @@
 #ifndef PROJECT_TIMER_H
 #define PROJECT_TIMER_H
 
-
 #include <QTimer>
-#include "../verdigris/src/wobjectimpl.h"
 #include "../verdigris/src/wobjectdefs.h"
 
 class IntTimer: public QTimer {

@@ -47,10 +47,10 @@ class AclGlobalWidget: public QWidget {
   Point *currentPoint;
   QTimer *timer;
   std::map<int, IntTimer *> timers;
-  TimerEventCallback timerEventCallback;
-  CharEventCallback charEventCallback;
-  MouseEventCallback mouseEventCallback;
-  KeyboardEventCallback keyboardEventCallback;
+  TimerEventCallback timerEventCallback = nullptr;
+  CharEventCallback charEventCallback = nullptr;
+  MouseEventCallback mouseEventCallback = nullptr;
+  KeyboardEventCallback keyboardEventCallback = nullptr;
  private:
   /**
    * Delates the painter creation and choice of pen/brush.

@@ -41,6 +41,7 @@ AclGlobalWidget::~AclGlobalWidget() {
 QPainter *AclGlobalWidget::getPainter() {
   if (painter) delete painter;
   painter = new QPainter(&image);
+  painter->setBrush(qBrush);
   painter->setPen(qPen);
   return painter;
 }

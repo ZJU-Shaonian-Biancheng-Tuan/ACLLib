@@ -1,6 +1,5 @@
 #include "acllib.h"
 
-#include <stdlib.h>
 #include <math.h>
 
 #define RAD(x) ((x)/360.0*2*3.1415926535)

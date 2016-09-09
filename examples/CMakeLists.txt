@@ -15,6 +15,8 @@ target_link_libraries(main_win32 acl_win32)
 add_executable(main_gtk main.c)
 target_link_libraries(main_gtk acl_gtk)
 
+add_executable(main_sdl main.c)
+target_link_libraries(main_sdl acl_sdl)
 #########################
 ###Mouse click example###
 #########################
@@ -27,6 +29,9 @@ target_link_libraries(mouse_click_win32 acl_win32)
 ####################
 ####Clock example###
 ####################
+add_executable(clock_sdl clock.c)
+target_link_libraries(clock_sdl acl_sdl m)
+
 add_executable(clock_win32 clock.c)
 target_link_libraries(clock_win32 acl_win32)
 
@@ -34,7 +39,7 @@ add_executable(clock_qt clock.c)
 target_link_libraries(clock_qt acl_qt)
 
 add_executable(clock_gtk clock.c)
-target_link_libraries(clock_gtk acl_gtk)
+target_link_libraries(clock_gtk acl_gtk m)
 
 ####################
 ##Keyboard exampl###
